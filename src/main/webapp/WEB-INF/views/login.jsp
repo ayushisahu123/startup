@@ -20,7 +20,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .login-image {
-      background: url('src/main/resources/img/20944201.jpg') no-repeat center center;
+      background: url('/img/20944201.jpg') no-repeat center center;
       background-size: cover;
       border-radius: 20px 0 0 20px;
 
