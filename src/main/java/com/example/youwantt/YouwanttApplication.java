@@ -8,8 +8,6 @@ public class YouwanttApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(YouwanttApplication.class, args);
+        //registration krne par user ko db me store krvana hai
 	}
-
-
-
 }

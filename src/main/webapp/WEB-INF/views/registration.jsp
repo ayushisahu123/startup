@@ -45,11 +45,8 @@
 <div class="register-card">
     <h2>Register</h2>
 
-    <c:if test="${not empty message}">
-        <div class="alert alert-success">${message}</div>
-    </c:if>
-
-    <form:form modelAttribute="user" method="post" action="/customerDashboard">
+    <!-- Registration Form -->
+    <form:form modelAttribute="user" method="post" action="${pageContext.request.contextPath}/register">
         <div class="form-group">
             <label class="form-label">Username</label>
             <form:input path="username" cssClass="form-control" placeholder="Enter your username"/>
@@ -73,7 +70,37 @@
     </div>
 </div>
 
+<!-- ✅ Popup Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ${message}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ✅ Auto-show popup if message exists -->
+<c:if test="${not empty message}">
+    <script>
+        $(document).ready(function(){
+            $('#messageModal').modal('show');
+        });
+    </script>
+</c:if>
+
 </body>
 </html>
