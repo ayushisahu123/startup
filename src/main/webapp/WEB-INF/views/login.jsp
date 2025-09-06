@@ -75,7 +75,7 @@
         <button type="submit" class="btn btn-custom w-100">Login</button>
       </form>
 
-      <p class="mt-4 text-center text-muted"> Don't have an account? <a href="#" class="text-decoration-none">Sign Up</a></p>
+      <p class="mt-4 text-center text-muted"> Dont have an account? <a href="${pageContext.request.contextPath}/register" class="text-decoration-none">Sign Up</a></p>
     </div>
   </div>
 </div>

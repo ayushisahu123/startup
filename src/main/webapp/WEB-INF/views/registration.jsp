@@ -65,11 +65,11 @@
             <form:password path="password" cssClass="form-control" placeholder="Enter password"/>
         </div>
 
-        <button type="submit" class="btn btn-custom btn-block mt-3">Register</button>
+        <button type="submit" class="btn btn-custom btn-block mt-3" >Register</button>
     </form:form>
 
     <div class="text-center mt-3">
-        <small>Already have an account? <a href="login.jsp">Login here</a></small>
+        <small>Already have an account? <a href="${pageContext.request.contextPath}/login">Login here</a></small>
     </div>
 </div>
 

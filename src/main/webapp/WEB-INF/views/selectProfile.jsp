@@ -43,7 +43,7 @@
 
     <h1>Do you want to sign up as a Customer or Vendor?</h1>
     <div class="button-container">
-         <a href="${pageContext.request.contextPath}/register" class="btn btn-secondary">Sign Up as Customer</a>
+         <a href="${pageContext.request.contextPath}/customerRegistration" class="btn btn-secondary">Sign Up as Customer</a>
          <a href="${pageContext.request.contextPath}/registerVendor" class="btn">Register as Vendor</a>
     </div>
 
