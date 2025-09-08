@@ -27,7 +27,6 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Shop by Categories</h2>
     <div class="row">
-
         <!-- Earphones -->
         <div class="col-md-4 mb-4">
             <div class="card category-card shadow-sm">

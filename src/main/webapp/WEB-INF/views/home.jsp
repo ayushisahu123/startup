@@ -26,7 +26,7 @@
       Discover, buy, and sell the latest mobile accessories from multiple trusted sellers all in one place.
      </p>
      <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
-      <a class="btn btn-primary btn-lg px-4 fw-semibold" href="#">
+      <a class="btn btn-primary btn-lg px-4 fw-semibold" href="${pageContext.request.contextPath}/registerVendor">
        Start Selling
       </a>
       <a class="btn btn-outline-primary btn-lg px-4 fw-semibold" href="${pageContext.request.contextPath}/login">
@@ -38,25 +38,29 @@
      <img alt="heroo" class="hero-img rounded shadow" height="400" src="images/output.jpg" width="500"/>
     </div>
    </div> -->
-<div class="hero-content">
-       <div class="text-center text-lg-start flex-grow-1">
-     <h1 class="display-5 fw-bold mb-3">
-      Your One-Stop Marketplace
-      <br>for Mobile Accessories
-     </h1>
-     <p class="lead text-secondary mb-4">
-      Discover, buy, and sell the latest mobile accessories from multiple trusted sellers all in one place.
-     </p>
-     <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
-      <a class="btn btn-primary btn-lg px-4 fw-semibold" href="#">
-       Start Selling
-      </a>
-      <a class="btn btn-outline-primary btn-lg px-4 fw-semibold" href="${pageContext.request.contextPath}/login">
-       Shop Now
-      </a>
-     </div>
-    </div>
-    </div>
+<div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
+    <a class="btn btn-primary btn-lg px-4 fw-semibold"
+       href="${pageContext.request.contextPath}/registerVendor">
+        Start Selling
+    </a>
+
+    <c:choose>
+        <c:when test="${pageContext.request.userPrincipal != null}">
+            <!-- Agar user logged in hai -->
+            <a class="btn btn-outline-primary btn-lg px-4 fw-semibold"
+               href="${pageContext.request.contextPath}/">
+                Shop Now
+            </a>
+        </c:when>
+        <c:otherwise>
+            <!-- Agar user login nahi hai -->
+            <a class="btn btn-outline-primary btn-lg px-4 fw-semibold"
+               href="${pageContext.request.contextPath}/login">
+                Shop Now
+            </a>
+        </c:otherwise>
+    </c:choose>
+</div>
 </section>
   <!-- Features Section -->
   <section class="py-5 bg-light" id="features">

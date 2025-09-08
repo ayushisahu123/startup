@@ -1,3 +1,6 @@
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +12,7 @@
   <style>
       @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
     body {
-      background: url(/images/aesthetic-clear-blue-sky-background-summer-season-blue-pastel-colored-banner-blurred-sky-gradient-background-simple-soft-light-backdrop-gradient-template-design-vector.jpg)center/cover no-repeat;
+      background: url(/img/aesthetic-clear-blue-sky-background-summer-season-blue-pastel-colored-banner-blurred-sky-gradient-background-simple-soft-light-backdrop-gradient-template-design-vector.jpg)center/cover no-repeat;
     font-family: 'Roboto', sans-serif;
     }
     .registration-wrapper {
@@ -21,7 +24,7 @@
       background: #fff;
     }
     .registration-image {
-      background: url("/images/flat-design-b2b-illustration_23-2149337639.jpg") no-repeat center center;
+      background: url("/img/flat-design-b2b-illustration_23-2149337639.jpg") no-repeat center center;
       background-size: cover;
       min-height: 100%;
     }
@@ -50,77 +53,69 @@
       <!-- Right Form Section -->
       <div class="col-md-6 registration-form">
         <h3 class="text-center">Grow Your Business with Us <br> Join as a Seller Today!</h3>
-        <form>
-          <!-- Vendor Details -->
-          <div class="mb-3">
-            <label for="vendorName" class="form-label">Vendor Name</label>
-            <input type="text" class="form-control" id="vendorName" placeholder="Enter vendor name" required>
-          </div>
 
-          <div class="mb-3">
-            <label for="businessName" class="form-label">Business Name</label>
-            <input type="text" class="form-control" id="businessName" placeholder="Enter business name" required>
-          </div>
+<form:form modelAttribute="user" method="post"
+           action="${pageContext.request.contextPath}/registerVendorRegistration"
+           enctype="multipart/form-data">
 
-          <div class="mb-3">
-            <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" required>
-          </div>
+    <!-- Vendor Name -> username -->
+    <div class="mb-3">
+        <label for="username" class="form-label">Vendor Name</label>
+        <form:input path="username" cssClass="form-control" id="username" placeholder="Enter vendor name" required="true"/>
+    </div>
 
-          <div class="mb-3">
-            <label for="phone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="phone" placeholder="Enter phone number" required>
-          </div>
+    <div class="mb-3">
+        <label for="businessName" class="form-label">Business Name</label>
+        <form:input path="businessName" cssClass="form-control" id="businessName" placeholder="Enter business name" required="true"/>
+    </div>
 
-          <!-- Address -->
-          <div class="mb-3">
-            <label for="address" class="form-label">Business Address</label>
-            <textarea class="form-control" id="address" rows="3" placeholder="Enter full address" required></textarea>
-          </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <form:input path="email" type="email" cssClass="form-control" id="email" placeholder="Enter email" required="true"/>
+    </div>
 
-          <!-- Category -->
-          <div class="mb-3">
-            <label for="category" class="form-label">Product Category</label>
-            <select class="form-select" id="category" required>
-              <option value="" disabled selected>Choose category</option>
-              <option>Clothing</option>
-              <option>Electronics</option>
-              <option>Home & Kitchen</option>
-              <option>Beauty & Personal Care</option>
-              <option>Books</option>
-              <option>Other</option>
-            </select>
-          </div>
+<div class="mb-3">
+    <label for="mobileNumber" class="form-label">Mobile Number</label>
+    <form:input path="mobileNumber" cssClass="form-control" id="mobileNumber" placeholder="Enter mobile number" required="true"/>
+</div>
 
-          <!-- Upload -->
-          <div class="mb-3">
-            <label for="license" class="form-label">Upload Business License</label>
-            <input type="file" class="form-control" id="license" required>
-          </div>
 
-          <!-- Password -->
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="password" class="form-label">Create Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="confirmPassword" class="form-label">Confirm Password</label>
-              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
-            </div>
-          </div>
+    <div class="mb-3">
+        <label for="address" class="form-label">Business Address</label>
+        <form:textarea path="address" cssClass="form-control" id="address" rows="3" placeholder="Enter full address" required="true"/>
+    </div>
 
-          <!-- Agreement -->
-          <div class="mb-3">
-               <a href="#">I'm already a seller !</a>
-            </label>
-          </div>
+    <div class="mb-3">
+        <label for="category" class="form-label">Product Category</label>
+        <form:select path="category" cssClass="form-select" id="category" required="true">
+            <form:option value="" label="Choose category"/>
+            <form:option value="Clothing"/>
+            <form:option value="Electronics"/>
+            <form:option value="Home & Kitchen"/>
+            <form:option value="Beauty & Personal Care"/>
+            <form:option value="Books"/>
+            <form:option value="Other"/>
+        </form:select>
+    </div>
 
-          <!-- Submit -->
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary btn-lg">Register</button>
-          </div>
-        </form>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="password" class="form-label">Create Password</label>
+            <form:password path="password" cssClass="form-control" id="password" placeholder="Enter password" required="true"/>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+        </div>
+    </div>
+
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+    </div>
+        <div class="text-center mt-3">
+            <small>Already a vendor? <a href="${pageContext.request.contextPath}/vendorLogin">Login here</a></small>
+        </div>
+</form:form>
       </div>
     </div>
   </div>

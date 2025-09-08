@@ -3,6 +3,7 @@ package com.example.youwantt.Controller;
 import com.example.youwantt.Bean.User;
 import com.example.youwantt.Dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,7 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RegistrationController {
-
+    @Autowired
+    private BCryptPasswordEncoder encoder;
     @Autowired
     private UserDao userDao;
     @GetMapping("/register")
@@ -52,6 +54,7 @@ public class RegistrationController {
         }
 
         try {
+            user.setPassword(encoder.encode(user.getPassword())); // encoding yaha
             int result = userDao.saveUser(user);
 
             if (result > 0) {

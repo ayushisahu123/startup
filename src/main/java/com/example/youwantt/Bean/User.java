@@ -1,5 +1,7 @@
 package com.example.youwantt.Bean;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class User {
     private int id;
     private String role;
@@ -8,6 +10,11 @@ public class User {
     private String password;
     private String mobileNumber;
     private String email;
+    private String businessName; // ✅ yeh property exist honi chahiye
+    private String confirmPassword; // added
+    private String address; // added
+    private String category; // added
+    private MultipartFile licenseFile; // added to handle file upload
 
     // Getters and Setters
 
@@ -59,4 +66,39 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getBusinessName() {
+        return businessName;
+    }
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public MultipartFile getLicenseFile() {
+        return licenseFile;
+    }
+    public void setLicenseFile(MultipartFile licenseFile) {
+        this.licenseFile = licenseFile;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
 }

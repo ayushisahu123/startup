@@ -1,3 +1,5 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +25,6 @@
       background: url('/img/20944201.jpg') no-repeat center center;
       background-size: cover;
       border-radius: 20px 0 0 20px;
-
     }
     .form-control:focus {
       box-shadow: none;
@@ -45,37 +46,48 @@
   <div class="row w-75 shadow-lg login-card bg-white">
 
     <!-- Left Image Section -->
-    <div class="col-lg-6 d-none d-lg-block login-image">
-    </div>
+    <div class="col-lg-6 d-none d-lg-block login-image"></div>
 
     <!-- Login Form Section -->
     <div class="col-lg-6 p-5">
       <h2 class="mb-4 fw-bold text-center">Welcome Back !!!</h2>
       <p class="text-center text-muted">Login to continue shopping with us</p>
 
-      <form>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter your email">
-        </div>
+      <!-- Error / Success Messages -->
+      <c:if test="${not empty error}">
+          <div class="alert alert-danger text-center">${error}</div>
+      </c:if>
 
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Enter your password">
-        </div>
+      <c:if test="${not empty message}">
+          <div class="alert alert-success text-center">${message}</div>
+      </c:if>
 
-        <div class="d-flex justify-content-between mb-3">
-          <div>
-            <input type="checkbox" id="remember">
-            <label for="remember" class="text-muted">Remember me</label>
+      <!-- Spring Form -->
+      <form:form modelAttribute="user" method="post" action="${pageContext.request.contextPath}/processLogin">
+          <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <form:input path="email" cssClass="form-control" id="email" placeholder="Enter your email"/>
           </div>
-          <a href="#" class="text-decoration-none">Forgot Password?</a>
-        </div>
 
-        <button type="submit" class="btn btn-custom w-100">Login</button>
-      </form>
+          <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <form:password path="password" cssClass="form-control" id="password" placeholder="Enter your password"/>
+          </div>
 
-      <p class="mt-4 text-center text-muted"> Dont have an account? <a href="${pageContext.request.contextPath}/register" class="text-decoration-none">Sign Up</a></p>
+          <div class="d-flex justify-content-between mb-3">
+              <div>
+                  <input type="checkbox" id="remember">
+                  <label for="remember" class="text-muted">Remember me</label>
+              </div>
+              <a href="#" class="text-decoration-none">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-custom w-100">Login</button>
+      </form:form>
+
+      <p class="mt-4 text-center text-muted"> Dont have an account?
+          <a href="${pageContext.request.contextPath}/register" class="text-decoration-none">Sign Up</a>
+      </p>
     </div>
   </div>
 </div>
