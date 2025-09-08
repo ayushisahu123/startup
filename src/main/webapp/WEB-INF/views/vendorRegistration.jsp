@@ -22,7 +22,10 @@
       border-radius: 15px;
       overflow: hidden;
       background: #fff;
+      display: flex;
+       align-items: stretch;
     }
+
     .registration-image {
       background: url("/img/flat-design-b2b-illustration_23-2149337639.jpg") no-repeat center center;
       background-size: cover;
@@ -40,6 +43,7 @@
       box-shadow: none;
       border-color: #0d6efd;
     }
+
   </style>
 </head>
 <body>

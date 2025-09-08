@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            <label class="form-label">Password</label>
+            <label class="form-label">Password !</label>
             <form:password path="password" cssClass="form-control" placeholder="Enter password"/>
         </div>
 
