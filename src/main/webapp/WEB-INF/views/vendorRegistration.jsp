@@ -9,7 +9,7 @@
   <style>
       @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
     body {
-      background: url(/images/aesthetic-clear-blue-sky-background-summer-season-blue-pastel-colored-banner-blurred-sky-gradient-background-simple-soft-light-backdrop-gradient-template-design-vector.jpg)center/cover no-repeat;
+      background: url('/img/aesthetic-clear-blue-sky-background-summer-season-blue-pastel-colored-banner-blurred-sky-gradient-background-simple-soft-light-backdrop-gradient-template-design-vector.jpg')center/cover no-repeat;
     font-family: 'Roboto', sans-serif;
     }
     .registration-wrapper {
@@ -19,11 +19,18 @@
       border-radius: 15px;
       overflow: hidden;
       background: #fff;
+      display: flex;
+       align-items: stretch;
     }
+
     .registration-image {
-      background: url("/images/flat-design-b2b-illustration_23-2149337639.jpg") no-repeat center center;
-      background-size: cover;
-      min-height: 100%;
+      background: url('img/10178365.jpg') no-repeat center center;
+      background-size: cover;   /* show full image without cropping */
+      background-color: #f8f9fa;  /* fallback background behind image */
+
+     flex: 1;
+
+
     }
     .registration-form {
       padding: 40px;
@@ -37,6 +44,7 @@
       box-shadow: none;
       border-color: #0d6efd;
     }
+
   </style>
 </head>
 <body>

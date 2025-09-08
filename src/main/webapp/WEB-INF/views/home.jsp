@@ -11,7 +11,132 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="index.css">
+ <style>
+ @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
+ *{
+     margin:0px;
+     padding:0px;
+     box-sizing: border-box;
+     font-family:"Spartan", sans-serif;
+
+ }
+
+ body {
+       font-family: 'Roboto', sans-serif;
+       background-color:#f9f6fb;
+       color: #111315;
+     }
+
+     .navbar {
+   background-color: rgba(255, 255, 255, 0.2); /* light transparent */
+   backdrop-filter: blur(10px); /* blur background */
+   -webkit-backdrop-filter: blur(10px); /* Safari support */
+   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+ }
+
+ .hero {
+       position: relative;
+       width: 100%;
+       height: 100vh; /* full screen height */
+       background: url('/img/bg.jpg') no-repeat center center/cover;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       color: white;
+       text-align: center;
+     }
+
+     /* Overlay (for text readability) */
+     .hero::after {
+       content: "";
+       position: absolute;
+       top: 0; left: 0; right: 0; bottom: 0;
+       background: rgba(0, 0, 0, 0.5); /* dark overlay */
+     }
+
+     .hero-content {
+       position: relative; /* so text appears above overlay */
+       z-index: 1;
+       max-width: 90%;
+        top: 10%;
+       left: 0%;                  /* push to left side */
+        transform: translate(0, -50%);
+        color: white;
+     }
+     .hero-content p{
+         font-size: 20px;
+         color: #f9f6fb;
+     }
+
+     .hero h1 {
+       font-size: 3rem;
+       margin-bottom: 1rem;
+     }
+
+     .hero p {
+       font-size: 1.2rem;
+       margin-bottom: 2rem;
+     }
+
+     .btn {
+       padding: 0.8rem 1.5rem;
+       background: #ff5722;
+       color: white;
+       border: none;
+       font-size: 1rem;
+       border-radius: 5px;
+       cursor: pointer;
+     }
+
+     .btn:hover {
+       background: #e64a19;
+     }
+
+     /* Responsive text */
+     @media (max-width: 768px) {
+       .hero h1 {
+         font-size: 2rem;
+       }
+       .hero p {
+         font-size: 1rem;
+       }
+     }
+     .btn-primary {
+       background-color: #2563eb;
+       border: none;
+     }
+     .btn-primary:hover {
+       background-color: #1e40af;
+     }
+     .feature-icon {
+       font-size: 2.5rem;
+       color: #2563eb;
+     }
+     .product-card img {
+       object-fit: contain;
+       height: 180px;
+       width: 100%;
+     }
+     .seller-badge {
+       background-color: #2563eb;
+       color: white;
+       font-size: 0.75rem;
+       padding: 0.15rem 0.5rem;
+       border-radius: 0.25rem;
+       position: absolute;
+       top: 0.5rem;
+       left: 0.5rem;
+       font-weight: 600;
+     }
+      @media (max-width: 575.98px) {
+       .hero-img {
+         height: 250px;
+         object-fit: cover;
+         width: 100%;
+       }
+     }
+
+ </style>
  </head>
  <body>
   <jsp:include page="nav.jsp" />
@@ -26,7 +151,7 @@
       Discover, buy, and sell the latest mobile accessories from multiple trusted sellers all in one place.
      </p>
      <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
-      <a class="btn btn-primary btn-lg px-4 fw-semibold" href="#">
+      <a class="btn btn-primary btn-lg px-4 fw-semibold" href="${pageContext.request.contextPath}/loginVendor">
        Start Selling
       </a>
       <a class="btn btn-outline-primary btn-lg px-4 fw-semibold" href="${pageContext.request.contextPath}/login">
@@ -48,7 +173,7 @@
       Discover, buy, and sell the latest mobile accessories from multiple trusted sellers all in one place.
      </p>
      <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
-      <a class="btn btn-primary btn-lg px-4 fw-semibold" href="#">
+      <a class="btn btn-primary btn-lg px-4 fw-semibold" href="${pageContext.request.contextPath}/loginVendor">
        Start Selling
       </a>
       <a class="btn btn-outline-primary btn-lg px-4 fw-semibold" href="${pageContext.request.contextPath}/login">

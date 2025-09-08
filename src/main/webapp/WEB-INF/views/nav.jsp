@@ -12,6 +12,9 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
   />
   <style>
+    body {
+      padding-top: 70px; /* Prevent content from hiding behind navbar */
+    }
 
     .flipkart-logo {
       font-style: italic;
@@ -96,17 +99,23 @@
       .login-icon {
         font-size: 1rem;
       }
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.2); /* light transparent */
+        backdrop-filter: blur(10px); /* blur background */
+        -webkit-backdrop-filter: blur(10px); /* Safari support */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      }
     }
   </style>
 </head>
 <body>
-  <header class="border-bottom">
+  <header class="border-bottom navbar fixed-top bg-white">
     <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between flex-wrap">
       <div class="d-flex align-items-center gap-1">
         <span class="flipkart-logo">Youwantt</span>
       </div>
 
-      <form class="position-relative flex-grow-1 mx-3 " style="max-width: 600px;">
+      <form class="position-relative flex-grow-1 mx-3" style="max-width: 600px;">
         <input
           type="search"
           class="form-control search-input"
@@ -126,7 +135,7 @@
             aria-expanded="false"
           >
             <i class="far fa-user login-icon"></i>
-            <span  class="text-decoration-none">Login</span>
+            <span class="text-decoration-none">Login</span>
             <i class="fas fa-caret-down ms-1"></i>
           </button>
           <ul class="dropdown-menu login-dropdown-menu" aria-labelledby="loginDropdown">
@@ -143,7 +152,7 @@
           <span>Cart</span>
         </button>
 
-        <button type="button" class="btn btn-link text-decoration-none d-flex align-items-center gap-1 text-dark p-0">
+        <button type="button" id="sellerbtn"class="btn btn-link text-decoration-none d-flex align-items-center gap-1 text-dark p-0">
           <i class="fas fa-store seller-icon"></i>
           <span>Become a Seller</span>
         </button>
@@ -171,5 +180,12 @@
   </header>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ <script>
+   document.getElementById("sellerbtn").addEventListener("click", function() {
+     alert("Redirecting to Seller Registration Page...");
+     window.location.href = "<%= request.getContextPath() %>/registerVendor";
+   });
+ </script>
 </body>
+
 </html>
