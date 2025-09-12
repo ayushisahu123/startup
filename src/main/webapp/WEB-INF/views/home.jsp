@@ -163,6 +163,16 @@
      <img alt="heroo" class="hero-img rounded shadow" height="400" src="images/output.jpg" width="500"/>
     </div>
    </div> -->
+<div class="hero-content">
+       <div class="text-center text-lg-start flex-grow-1">
+     <h1 class="display-5 fw-bold mb-3">
+      Your One-Stop Marketplace
+      <br>for Mobile Accessories
+     </h1>
+     <p class="lead text-secondary mb-4">
+      Discover, buy, and sell the latest mobile accessories from multiple trusted sellers all in one place.
+     </p>
+
 <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
     <a class="btn btn-primary btn-lg px-4 fw-semibold"
        href="${pageContext.request.contextPath}/registerVendor">
@@ -186,6 +196,8 @@
         </c:otherwise>
     </c:choose>
 </div>
+ </div>
+    </div>
 </section>
   <!-- Features Section -->
   <section class="py-5 bg-light" id="features">

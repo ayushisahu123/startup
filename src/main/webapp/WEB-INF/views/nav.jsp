@@ -1,6 +1,121 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flipkart Header Bootstrap</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    body {
+      padding-top: 70px; /* Prevent content from hiding behind navbar */
+    }
+        header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 1030; /* above content */
+          background: #fff;
+        }
+    .flipkart-logo {
+      font-style: italic;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #2874f0;
+      user-select: none;
+    }
+    .explore-plus {
+      font-style: italic;
+      font-weight: 700;
+      font-size: 0.65rem;
+      color: #f2a900;
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      user-select: none;
+    }
+    .explore-text {
+      font-style: italic;
+      font-weight: 600;
+      font-size: 0.65rem;
+      color: #6b7280; /* gray-600 */
+      user-select: none;
+      line-height: 1;
+    }
+    .search-input {
+      background-color: #ebf2ff;
+      border-radius: 0.5rem;
+      border: none;
+      padding-left: 2.5rem;
+      height: 2.5rem;
+      color: #374151; /* gray-700 */
+    }
+    .search-input::placeholder {
+      color: #6b7280; /* gray-500 */
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+      pointer-events: none;
+    }
+    .login-dropdown-toggle::after {
+      display: none;
+    }
+    .login-dropdown-menu {
+      min-width: 8rem;
+    }
+    .login-icon {
+      font-size: 1.125rem;
+      margin-right: 0.25rem;
+    }
+    .cart-icon,
+    .seller-icon {
+      font-size: 1.125rem;
+      margin-right: 0.25rem;
+    }
+    .dots-icon {
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+    @media (max-width: 576px) {
+      .search-input {
+        height: 2rem;
+        font-size: 0.875rem;
+      }
+      .flipkart-logo {
+        font-size: 1rem;
+      }
+      .explore-text,
+      .explore-plus {
+        font-size: 0.55rem;
+      }
+      .nav-link {
+        font-size: 0.875rem;
+      }
+      .cart-icon,
+      .seller-icon,
+      .login-icon {
+        font-size: 1rem;
+      }
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.2); /* light transparent */
+        backdrop-filter: blur(10px); /* blur background */
+        -webkit-backdrop-filter: blur(10px); /* Safari support */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+  </style>
+</head>
 <header class="border-bottom">
   <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between flex-wrap">
     <div class="d-flex align-items-center gap-1">
@@ -17,7 +132,7 @@
       <i class="fas fa-search search-icon"></i>
     </form>
 
-    <nav class="d-flex align-items-center gap-3 flex-wrap">
+    <nav class="d-flex align-items-center  navbar-expand-md gap-3 flex-wrap">
 
       <!-- If user is logged in -->
       <c:if test="${pageContext.request.userPrincipal != null}">
