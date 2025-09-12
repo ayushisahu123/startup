@@ -63,7 +63,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Add Products</h5>
                             <p class="card-text">Upload new products to your store.</p>
-                            <a href="${pageContext.request.contextPath}/vendor/addProduct" class="btn btn-primary">Add</a>
+                            <a href="${pageContext.request.contextPath}/addProduct" class="btn btn-primary">Add</a>
                         </div>
                     </div>
                 </div>
