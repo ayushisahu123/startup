@@ -54,10 +54,6 @@ public class UserDao {
         }
     }
 
-
-
-
-
     public User findByUsername(String username) {
         String sql = "SELECT * FROM user WHERE email = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{username}, (ResultSet rs, int rowNum) -> {
@@ -74,5 +70,15 @@ public class UserDao {
     public int saveVendor(User user) {
             String sql = "INSERT INTO user (username,name, email, password,role,mobile_number) VALUES (?,?, ?, ?,?,?)";
         return jdbcTemplate.update(sql, user.getUsername(),user.getName(), user.getEmail(), user.getPassword(),user.getRole(),user.getMobileNumber());
+    }
+
+
+    public Long getUserIdByUsername(String username) {
+        String sql = "SELECT id FROM user WHERE username = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, Long.class, username);
+        } catch (Exception e) {
+            return null; // if user not found
+        }
     }
 }

@@ -75,6 +75,11 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>5.3.9.RELEASE</version>   <!-- same version jo aapke spring-security-core/web me hai -->
         </dependency>
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.34.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,4 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +18,14 @@
     .active-section { display: block; }
     .table td, .table th { font-size: 15px; color: #212529; }
     .table td { white-space: normal; word-wrap: break-word; max-width: 250px; }
+      #imagePreview img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin: 5px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
   </style>
 </head>
 <body>
@@ -34,37 +46,48 @@
   <div id="singleForm" class="form-section active-section">
     <div class="card shadow">
       <div class="card-body">
-        <form id="productForm">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">Product Name</label>
-              <input type="text" class="form-control" id="productName" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Price</label>
-              <input type="number" class="form-control" id="productPrice" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Category</label>
-              <select class="form-select" id="productCategory" required>
-                <option value="">Choose...</option>
-                <option>Electronics</option>
-                <option>Clothing</option>
-                <option>Books</option>
-                <option>Home Appliances</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Image</label>
-              <input type="file" class="form-control" id="productImage" accept="image/*" required>
-            </div>
-            <div class="col-12">
-              <label class="form-label">Description</label>
-              <textarea class="form-control" id="productDesc" rows="2"></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-success mt-3">Add Product</button>
-        </form>
+<form id="productForm"
+      action="${pageContext.request.contextPath}/addNewProduct"
+      method="post" enctype="multipart/form-data">
+
+  <input type="hidden" name="vendorId" value="${sessionScope.vendorId}">
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Product Name</label>
+      <input type="text" class="form-control" id="productName" name="productName" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Price</label>
+      <input type="number" class="form-control" id="productPrice" name="price" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Category</label>
+      <select class="form-select" id="productCategory" name="categoryId" required>
+        <option value="">Choose...</option>
+        <option value="1">Electronics</option>
+        <option value="2">Clothing</option>
+        <option value="3">Books</option>
+        <option value="4">Home Appliances</option>
+      </select>
+    </div>
+    <div>
+ <div class="col-md-12">
+   <label class="form-label">Upload Images</label>
+   <input type="file" class="form-control" id="productImages" name="images" multiple accept="image/*">
+   <!-- Preview Area -->
+   <div id="imagePreview" class="d-flex flex-wrap mt-2"></div>
+ </div>
+
+  </div>
+    <div class="col-12">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" id="productDesc" name="description" rows="2"></textarea>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success mt-3">Add Product</button>
+</form>
+
       </div>
     </div>
   </div>
@@ -81,34 +104,51 @@
     </div>
   </div>
 
-  <!-- Product List -->
-  <div class="card shadow mt-4">
-    <div class="card-header bg-dark text-white">
-      <h5 class="mb-0">My Products</h5>
-    </div>
-    <div class="card-body table-responsive">
-      <table class="table table-bordered table-hover align-middle">
-        <thead class="table-secondary text-center">
-          <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody id="productTable" class="table-group-divider">
-          <!-- Products will appear here -->
-        </tbody>
-      </table>
-    </div>
+
+<!-- Product List -->
+<div class="card shadow mt-4">
+  <div class="card-header bg-dark text-white">
+    <h5 class="mb-0">My Products</h5>
   </div>
-</div>
+<table id="productTable" class="table table-bordered table-hover align-middle">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="p" items="${products}">
+      <tr>
+        <td>${p.productName}</td>
+        <td>₹${p.price}</td>
+        <td>
+          <c:choose>
+            <c:when test="${p.categoryId == 1}">Electronics</c:when>
+            <c:when test="${p.categoryId == 2}">Clothing</c:when>
+            <c:when test="${p.categoryId == 3}">Books</c:when>
+            <c:when test="${p.categoryId == 4}">Home Appliances</c:when>
+            <c:otherwise>Other</c:otherwise>
+          </c:choose>
+        </td>
+        <td>${p.description}</td>
+        <td>
+          <form action="${pageContext.request.contextPath}/deleteProduct" method="post">
+            <input type="hidden" name="productId" value="${p.productId}">
+            <button type="submit" class="btn btn-sm btn-danger">X</button>
+          </form>
+        </td>
+      </tr>
+    </c:forEach>
+  </tbody>
+</table>
 
 <script>
-  // Tab Switching
-  const tabs = document.querySelectorAll('#productTabs .nav-link');
+
+ const tabs = document.querySelectorAll('#productTabs .nav-link');
   tabs.forEach(tab => {
     tab.addEventListener('click', function(e) {
       e.preventDefault();
@@ -119,28 +159,17 @@
     });
   });
 
-  const productForm = document.getElementById("productForm");
-  const productTable = document.getElementById("productTable");
-
-  // Add single product
-  productForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const name = document.getElementById("productName").value;
-    const price = document.getElementById("productPrice").value;
-    const category = document.getElementById("productCategory").value;
-    const desc = document.getElementById("productDesc").value;
-    const imageFile = document.getElementById("productImage").files[0];
-    let imageURL = imageFile ? URL.createObjectURL(imageFile) : "";
-
-    addProductToTable(imageURL, name, price, category, desc);
-    productForm.reset();
+  // Remove product row (frontend only)
+  document.querySelectorAll(".remove-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+      this.closest("tr").remove();
+    });
   });
 
-  // Add product row
-  function addProductToTable(image, name, price, category, desc) {
+  // CSV Upload (frontend preview only)
+  function addProductToTable(name, price, category, desc) {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td><img src="${image}" class="product-img"></td>
       <td class="text-start fw-semibold">${name}</td>
       <td class="text-center">₹${price}</td>
       <td class="text-start">${category}</td>
@@ -148,10 +177,9 @@
       <td class="text-center"><button class="btn btn-sm btn-danger remove-btn">X</button></td>
     `;
     row.querySelector(".remove-btn").addEventListener("click", () => row.remove());
-    productTable.appendChild(row);
+    document.querySelector("#productTable tbody").appendChild(row);
   }
 
-  // CSV Upload
   document.getElementById("uploadCSV").addEventListener("click", function() {
     const file = document.getElementById("csvFile").files[0];
     if (!file) {
@@ -160,16 +188,64 @@
     }
     const reader = new FileReader();
     reader.onload = function(e) {
-      const rows = e.target.result.split("\n").slice(1); // skip header
+      const rows = e.target.result.split("\n").slice(1);
       rows.forEach(line => {
         const [name, price, category, desc] = line.split(",");
         if (name && price && category) {
-          addProductToTable("", name.trim(), price.trim(), category.trim(), desc ? desc.trim() : "");
+          addProductToTable(name.trim(), price.trim(), category.trim(), desc ? desc.trim() : "");
         }
       });
     };
     reader.readAsText(file);
   });
+</script>
+<script>
+document.getElementById("productImages").addEventListener("change", function (event) {
+    let files = Array.from(event.target.files);
+    const previewContainer = document.getElementById("imagePreview");
+
+    function renderPreview() {
+        previewContainer.innerHTML = "";
+        files.forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const wrapper = document.createElement("div");
+                wrapper.classList.add("position-relative", "m-2");
+
+                wrapper.innerHTML = `
+                    <img src="${e.target.result}" class="rounded" width="100" height="100" style="object-fit:cover;">
+                    <span class="remove-btn" data-index="${index}"
+                          style="position:absolute;top:-8px;right:-8px;cursor:pointer;
+                                 background:red;color:white;font-weight:bold;
+                                 border-radius:50%;padding:2px 6px;">&times;</span>
+                `;
+                previewContainer.appendChild(wrapper);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Initial render
+    renderPreview();
+
+    // Handle remove click
+    previewContainer.addEventListener("click", function (e) {
+        if (e.target.classList.contains("remove-btn")) {
+            const index = parseInt(e.target.getAttribute("data-index"));
+            files.splice(index, 1);
+
+            // Recreate FileList
+            const dt = new DataTransfer();
+            files.forEach(f => dt.items.add(f));
+            event.target.files = dt.files;
+
+            renderPreview();
+        }
+    });
+});
+</script>
+
+
 </script>
 </body>
 </html>
