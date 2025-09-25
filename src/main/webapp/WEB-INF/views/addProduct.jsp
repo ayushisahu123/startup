@@ -174,10 +174,12 @@
       <td class="text-center">₹${price}</td>
       <td class="text-start">${category}</td>
       <td class="text-start">${desc}</td>
-      <td class="text-center"><button class="btn btn-sm btn-danger remove-btn">X</button></td>
+      <td class="text-center"><a href="${contextPath}/editProduct?id=${p.id}" class="btn btn-sm btn-warning">Edit</a></td>
     `;
     row.querySelector(".remove-btn").addEventListener("click", () => row.remove());
     document.querySelector("#productTable tbody").appendChild(row);
+
+    productTable.appendChild(row);
   }
 
   document.getElementById("uploadCSV").addEventListener("click", function() {
