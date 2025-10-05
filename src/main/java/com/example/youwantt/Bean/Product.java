@@ -13,6 +13,7 @@ public class Product {
     private Integer stockQuantity;
         private String imageUrl;
     private LocalDateTime createdAt;
+    private String thumbnailUrl;
 
     // Getters and Setters
     public Long getProductId() {
@@ -76,5 +77,13 @@ public class Product {
     }
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 }

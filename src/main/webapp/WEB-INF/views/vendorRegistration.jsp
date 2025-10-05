@@ -9,6 +9,8 @@
   <title>Vendor Registration</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style>
       @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
     body {
@@ -57,7 +59,12 @@
       <!-- Right Form Section -->
       <div class="col-md-6 registration-form">
         <h3 class="text-center">Grow Your Business with Us <br> Join as a Seller Today!</h3>
-
+<c:if test="${not empty message}">
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</c:if>
 <form:form modelAttribute="user" method="post"
            action="${pageContext.request.contextPath}/registerVendorRegistration"
            enctype="multipart/form-data">
@@ -126,5 +133,24 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <c:if test="${not empty message && message eq 'Registration successful!'}">
+    <script>
+      Swal.fire({
+        title: 'Success!',
+        text: 'Vendor registered successfully.',
+        icon: 'success',
+        confirmButtonText: 'Go to Dashboard',
+        customClass: {
+          confirmButton: 'btn btn-primary'
+        },
+        buttonsStyling: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = '<c:url value="/vendorDashboard" />';
+        }
+      });
+    </script>
+  </c:if>
 </body>
 </html>

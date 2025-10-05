@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -20,9 +21,10 @@ public class ProductServiceImpl implements ProductService {
     private ImageUploadService imageUploadService;
 
     @Override
-    public void addNewProduct(Product product, List<MultipartFile> images, String username) {
+    public void addNewProduct(Product product, List<MultipartFile> images, String username,MultipartFile thumbnailImage) {
         // Later: fetch vendorId dynamically using username from DB
-        product.setVendorId(7L);
+
+        product.setVendorId(product.getVendorId());
         product.setCategoryId(1L);
 
         // Save product
@@ -38,12 +40,29 @@ public class ProductServiceImpl implements ProductService {
                 throw new RuntimeException(e);
             }
             for (String url : imageUrls) {
-                imageUploadService.saveImageToDatabase(productId, url);
+                imageUploadService.saveImageToDatabase(productId, url,false);
             }
             System.out.println("Images uploaded & saved for product ID: " + productId);
         } else {
             System.out.println("No images received for product ID: " + productId);
         }
+
+
+        if (thumbnailImage != null && !thumbnailImage.isEmpty()) {
+            String imageUrl = null;
+            try {
+                imageUrl = imageUploadService.uploadImage(thumbnailImage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            imageUploadService.saveImageToDatabase(productId, imageUrl,true);
+
+            System.out.println("Images uploaded & saved for product ID: " + productId);
+        } else {
+            System.out.println("No images received for product ID: " + productId);
+        }
+
+
     }
 
     public boolean deleteProduct(Long productId, Long vendorId) {

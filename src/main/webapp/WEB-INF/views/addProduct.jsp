@@ -32,6 +32,15 @@
 <div class="container my-4">
   <h2 class="text-center mb-4">📦 Vendor Product Dashboard</h2>
 
+    <!-- Display success message -->
+    <c:if test="${not empty successMessage}">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> ${successMessage}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </c:if>
+
+
   <!-- Tabs -->
   <ul class="nav nav-tabs justify-content-center mb-4" id="productTabs">
     <li class="nav-item">
@@ -72,6 +81,12 @@
       </select>
     </div>
     <div>
+<div class="col-md-12">
+  <label class="form-label">Upload Thumbnail Image</label>
+  <input type="file" class="form-control" id="thumbnailImage" name="thumbnailImage" accept="image/*">
+  <!-- Preview Area -->
+  <div id="thumbnailPreview" class="d-flex flex-wrap mt-2"></div>
+</div>
  <div class="col-md-12">
    <label class="form-label">Upload Images</label>
    <input type="file" class="form-control" id="productImages" name="images" multiple accept="image/*">
@@ -202,52 +217,96 @@
   });
 </script>
 <script>
-document.getElementById("productImages").addEventListener("change", function (event) {
-    let files = Array.from(event.target.files);
-    const previewContainer = document.getElementById("imagePreview");
+// Preview multiple product images with remove button
+document.getElementById("productImages").addEventListener("change", function(event) {
+    const preview = document.getElementById("imagePreview");
+    preview.innerHTML = ""; // Clear old previews
 
-    function renderPreview() {
-        previewContainer.innerHTML = "";
-        files.forEach((file, index) => {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const wrapper = document.createElement("div");
-                wrapper.classList.add("position-relative", "m-2");
+    const files = Array.from(event.target.files);
 
-                wrapper.innerHTML = `
-                    <img src="${e.target.result}" class="rounded" width="100" height="100" style="object-fit:cover;">
-                    <span class="remove-btn" data-index="${index}"
-                          style="position:absolute;top:-8px;right:-8px;cursor:pointer;
-                                 background:red;color:white;font-weight:bold;
-                                 border-radius:50%;padding:2px 6px;">&times;</span>
-                `;
-                previewContainer.appendChild(wrapper);
-            };
-            reader.readAsDataURL(file);
-        });
-    }
+    files.forEach((file, index) => {
+        const wrapper = document.createElement("div");
+        wrapper.style.position = "relative";
+        wrapper.style.display = "inline-block";
 
-    // Initial render
-    renderPreview();
+        wrapper.style.margin = "5px";
 
-    // Handle remove click
-    previewContainer.addEventListener("click", function (e) {
-        if (e.target.classList.contains("remove-btn")) {
-            const index = parseInt(e.target.getAttribute("data-index"));
-            files.splice(index, 1);
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.style.width = "120px";
+        img.style.height = "120px";
+        img.style.borderRadius = "6px";
+        img.style.border = "1px solid #ddd";
 
-            // Recreate FileList
+        const removeBtn = document.createElement("span");
+        removeBtn.innerHTML = "&times;";
+        removeBtn.style.position = "absolute";
+        removeBtn.style.top = "2px";
+        removeBtn.style.right = "5px";
+        removeBtn.style.background = "rgba(0,0,0,0.6)";
+        removeBtn.style.color = "#fff";
+        removeBtn.style.fontWeight = "bold";
+        removeBtn.style.padding = "2px 6px";
+        removeBtn.style.cursor = "pointer";
+        removeBtn.style.borderRadius = "50%";
+        removeBtn.title = "Remove";
+
+        removeBtn.addEventListener("click", function() {
+            wrapper.remove();
+            // Remove the file from input.files
             const dt = new DataTransfer();
-            files.forEach(f => dt.items.add(f));
-            event.target.files = dt.files;
+            files.forEach((f, i) => { if(i !== index) dt.items.add(f); });
+            document.getElementById("productImages").files = dt.files;
+        });
 
-            renderPreview();
-        }
+        wrapper.appendChild(img);
+        wrapper.appendChild(removeBtn);
+        preview.appendChild(wrapper);
     });
+});
+
+// Preview thumbnail image with remove button
+document.getElementById("thumbnailImage").addEventListener("change", function(event) {
+    const preview = document.getElementById("thumbnailPreview");
+    preview.innerHTML = ""; // Clear old preview
+    const file = event.target.files[0];
+    if (file) {
+        const wrapper = document.createElement("div");
+        wrapper.style.position = "relative";
+        wrapper.style.display = "inline-block";
+        wrapper.style.margin = "5px";
+
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.style.width = "120px";
+        img.style.height = "120px";
+        img.style.borderRadius = "6px";
+        img.style.border = "1px solid #ddd";
+
+        const removeBtn = document.createElement("span");
+        removeBtn.innerHTML = "&times;";
+        removeBtn.style.position = "absolute";
+        removeBtn.style.top = "2px";
+        removeBtn.style.right = "5px";
+        removeBtn.style.background = "rgba(0,0,0,0.6)";
+        removeBtn.style.color = "#fff";
+        removeBtn.style.fontWeight = "bold";
+        removeBtn.style.padding = "2px 6px";
+        removeBtn.style.cursor = "pointer";
+        removeBtn.style.borderRadius = "50%";
+        removeBtn.title = "Remove";
+
+        removeBtn.addEventListener("click", function() {
+            wrapper.remove();
+            document.getElementById("thumbnailImage").value = "";
+        });
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(removeBtn);
+        preview.appendChild(wrapper);
+    }
 });
 </script>
 
-
-</script>
 </body>
 </html>

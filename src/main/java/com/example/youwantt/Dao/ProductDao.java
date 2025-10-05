@@ -2,6 +2,7 @@ package com.example.youwantt.Dao;
 
 import com.example.youwantt.Bean.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -53,7 +54,14 @@ public class ProductDao {
                 product.getProductId(), product.getVendorId());
     }
 
-
+    public String getThumbnailUrlByProductId(Long productId) {
+        String sql = "SELECT image_url FROM product_images WHERE product_id = ? AND is_thumbnail = true LIMIT 1";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{productId}, String.class);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // No thumbnail found
+        }
+    }
     public Product getProductById(Long productId) {
         String sql = "SELECT * FROM products WHERE product_id = ?";
         Product product = jdbcTemplate.queryForObject(sql, new Object[]{productId}, (rs, rowNum) -> {

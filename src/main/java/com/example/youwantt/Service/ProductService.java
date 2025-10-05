@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ProductService {
-    void addNewProduct(Product product, List<MultipartFile> images, String username);
+    void addNewProduct(Product product, List<MultipartFile> images, String username,MultipartFile thumbnailImage);
 
     boolean deleteProduct(Long productId, Long vendorId);
 }

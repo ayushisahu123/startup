@@ -39,8 +39,14 @@ public class ImageUploadService {
         return urls;
     }
 
-    public Long saveImageToDatabase(int productId, String imageUrl) {
-        String sql = "INSERT INTO product_images (product_id, image_url, uploaded_at) VALUES (?, ?, ?)";
+    public String uploadImage(MultipartFile file) throws IOException {
+        Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+                ObjectUtils.asMap("resource_type", "auto"));
+        return uploadResult.get("url").toString();  // return single URL
+    }
+
+    public Long saveImageToDatabase(int productId, String imageUrl,boolean isThumbnail) {
+        String sql = "INSERT INTO product_images (product_id, image_url, uploaded_at,is_thumbnail) VALUES (?, ?, ?,?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -49,6 +55,13 @@ public class ImageUploadService {
             ps.setLong(1, productId);
             ps.setString(2, imageUrl);
             ps.setObject(3, LocalDateTime.now());
+            if(isThumbnail){
+                ps.setObject(4,true);
+            }
+            else{
+                ps.setObject(4,false);
+
+            }
             return ps;
         }, keyHolder);
 

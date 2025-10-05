@@ -102,7 +102,7 @@ public class ProductController {
     @PostMapping("/addNewProduct")
     public ModelAndView addNewProduct(
             @ModelAttribute Product product,
-            @RequestParam("images") List<MultipartFile> images) {
+            @RequestParam("images") List<MultipartFile> images,  @RequestParam("thumbnailImage") MultipartFile thumbnailImage) {
 
         ModelAndView mav = new ModelAndView("addProduct");
 
@@ -115,7 +115,9 @@ public class ProductController {
             System.out.println("username: " + username);
             Long vendorId = userDao.getUserIdByUsername(username);
             // Delegate to service layer
-            productService.addNewProduct(product, images, username);
+            product.setVendorId(vendorId);
+            productService.addNewProduct(product, images, username,thumbnailImage);
+
             // Load vendor products for dashboard
             List<Product> products = productDao.getProductsByVendorId(vendorId);
             mav.addObject("products", products);
@@ -130,13 +132,23 @@ public class ProductController {
     }
 
 
-    @GetMapping("/getAllProducts")
-    public ModelAndView getAllProducts(@RequestParam("vendorId") Integer vendorId) {
-        ModelAndView mav = new ModelAndView("addProduct");
+    @GetMapping("/getAllProductsByVendor")
+    public ModelAndView getAllProductsByVendor() {
+        ModelAndView mav = new ModelAndView("viewProduct");
+        System.err.println("reached here");
+
         try {
             // Load vendor products for dashboard
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String username = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
+            Long vendorId = userDao.getUserIdByUsername(username);
             List<Product> products = productDao.getProductsByVendorId(vendorId);
+            for (Product p : products) {
+                String thumbnailUrl = productDao.getThumbnailUrlByProductId(p.getProductId());
+                p.setImageUrl(thumbnailUrl); // Ensure your Product model has imageUrl property
+            }
             mav.addObject("products", products);
+
             } catch (Exception e) {
             System.err.println("Error while fetching products: " + e.getMessage());
             e.printStackTrace();
@@ -144,9 +156,6 @@ public class ProductController {
         }
         return mav;
         }
-
-
-
 
     @PostMapping("/updateProduct")
     public ModelAndView updateProduct(
@@ -221,4 +230,10 @@ public class ProductController {
     }
 
 
+    @GetMapping("/viewProduct")
+    public ModelAndView viewProduct() {
+        ModelAndView mav = new ModelAndView("viewProduct"); // name without .jsp
+        mav.addObject("user", new User());
+        return mav;
+    }
 }

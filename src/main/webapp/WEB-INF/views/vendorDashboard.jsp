@@ -74,7 +74,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">My Products</h5>
                             <p class="card-text">View, edit, or delete your existing products.</p>
-                            <a href="${pageContext.request.contextPath}/viewProduct" class="btn btn-success">View</a>
+                            <a href="${pageContext.request.contextPath}/getAllProductsByVendor" class="btn btn-success">View</a>
                         </div>
                     </div>
                 </div>

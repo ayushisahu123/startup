@@ -29,7 +29,7 @@ public class LoginController {
         User dbUser = userDao.validateUser(user.getEmail(), user.getPassword());
 
         if (dbUser != null) {
-            ModelAndView mav = new ModelAndView("home");
+            ModelAndView mav = new ModelAndView("vendorDashboard");
             mav.addObject("message", "Login successful!");
             mav.addObject("user", dbUser);
             return mav;
